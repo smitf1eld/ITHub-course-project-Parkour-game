@@ -23,7 +23,7 @@ public class CoreCheckpoint : MonoBehaviour
     }
     private void Update()
     {
-        CountCheckPoints.text = CounterCP.ToString();
+        CountCheckPoints.text = $"РЈ РІР°СЃ РѕСЃС‚Р°Р»РѕСЃСЊ {CounterCP.ToString()} С‡РµРєРїРѕРёРЅС‚РѕРІ";
     }
 
     private void Awake()
@@ -38,7 +38,7 @@ public class CoreCheckpoint : MonoBehaviour
         {
             currentCheckpointIndex++;
             checkpoints[currentCheckpointIndex] = playerTransform.position;
-            Debug.Log("Установлен чекпоинт: " + currentCheckpointIndex);
+            Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " + currentCheckpointIndex);
         }
     }
 
@@ -58,6 +58,6 @@ public class CoreCheckpoint : MonoBehaviour
             cameraFollow.TeleportToPosition(position);
         }
 
-        Debug.Log("Игрок телепортирован на позицию " + position);
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ " + position);
     }
 }
