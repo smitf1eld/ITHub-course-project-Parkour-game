@@ -5,13 +5,13 @@ using UnityEngine;
 public class DeathCheck : MonoBehaviour
 {
     [SerializeField]
-    PlayerInputCP player;
+    private CoreCheckpoint coreCheckpoint;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Death") || other.CompareTag("Pila"))
         {
-            player.Die();
+            coreCheckpoint.TeleportToLastCheckpoint();
         }
     }
 }

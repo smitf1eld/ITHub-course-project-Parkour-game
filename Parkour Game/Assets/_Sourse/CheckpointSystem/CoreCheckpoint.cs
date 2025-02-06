@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CoreCheckpoint : MonoBehaviour
 {
@@ -8,20 +9,27 @@ public class CoreCheckpoint : MonoBehaviour
     private Transform playerTransform;
 
     [SerializeField]
-    private GameObject playerPrefab;
-
-    [SerializeField]
     private int maxCheckpoints = 3;
+    public TextMeshProUGUI CountCheckPoints;
+    public static int CounterCP = 5;
 
     private Vector3[] checkpoints;
     private int currentCheckpointIndex = -1;
 
-    private CameraFollowCP cameraFollow;
+    private CameraFollow cameraFollow;
+    private void Start()
+    {
+        CounterCP = maxCheckpoints;
+    }
+    private void Update()
+    {
+        CountCheckPoints.text = CounterCP.ToString();
+    }
 
     private void Awake()
     {
         checkpoints = new Vector3[maxCheckpoints];
-        cameraFollow = FindObjectOfType<CameraFollowCP>();
+        cameraFollow = FindObjectOfType<CameraFollow>();
     }
 
     public void SetCheckpoint()
@@ -34,25 +42,22 @@ public class CoreCheckpoint : MonoBehaviour
         }
     }
 
-    public void ReturnToLastCheckpoint()
+    public void TeleportToLastCheckpoint()
     {
         if (currentCheckpointIndex >= 0)
         {
-            RespawnPlayer(checkpoints[currentCheckpointIndex]);
+            TeleportPlayer(checkpoints[currentCheckpointIndex]);
         }
     }
 
-    public void RespawnPlayer(Vector3 position)
+    private void TeleportPlayer(Vector3 position)
     {
-        DestroyImmediate(playerTransform.gameObject);
-        GameObject newPlayer = Instantiate(playerPrefab, position, Quaternion.identity);
-
-        playerTransform = newPlayer.transform;
+        playerTransform.position = position;
         if (cameraFollow != null)
         {
-            cameraFollow.AssignTarget(playerTransform);
+            cameraFollow.TeleportToPosition(position);
         }
 
-        Debug.Log("Игрок возрожден на позиции " + position);
+        Debug.Log("Игрок телепортирован на позицию " + position);
     }
 }
