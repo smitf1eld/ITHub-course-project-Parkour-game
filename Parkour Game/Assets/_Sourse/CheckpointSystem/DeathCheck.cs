@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathCheck : MonoBehaviour
+namespace CheckPointSystem
 {
-    [SerializeField]
-    private CoreCheckpoint coreCheckpoint;
-
-    private void OnTriggerEnter(Collider other)
+    public class DeathCheck : MonoBehaviour
     {
-        if (other.CompareTag("Death") || other.CompareTag("Pila"))
+        [SerializeField]
+        private CoreCheckpoint coreCheckpoint;
+
+        private void OnTriggerEnter(Collider other)
         {
-            coreCheckpoint.TeleportToLastCheckpoint();
+            if (other.CompareTag("Death") || other.CompareTag("Pila"))
+            {
+                coreCheckpoint.TeleportToLastCheckpoint();
+            }
         }
     }
 }

@@ -1,41 +1,48 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.LowLevel;
+using CheckPointSystem;
 
-public class PlayerInputCP : MonoBehaviour
+namespace CheckPointSystem
 {
-    public TimerPlayer timerPlayer;
-    [SerializeField]
-    private CoreCheckpoint Core;
-
-    private void Start()
+    public class PlayerInputCP : MonoBehaviour
     {
-        if (!Core)
-        {
-            Core = FindObjectOfType<CoreCheckpoint>();
-        }
-    }
+        [SerializeField]
+        private CoreCheckpoint Core;
+        private TimerPlayer _timerPlayer;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
+        private void Start()
         {
-            Core.SetCheckpoint();
-            if (CoreCheckpoint.CounterCP > 0)
+            if (!Core)
             {
-                CoreCheckpoint.CounterCP -= 1;
+                Core = FindObjectOfType<CoreCheckpoint>();
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Core.SetCheckpoint();
+                if (CoreCheckpoint.CounterCP > 0)
+                {
+                    CoreCheckpoint.CounterCP -= 1;
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                Core.TeleportToLastCheckpoint();
+                _timerPlayer.isRespaunPlayer();
+            }
+        }
+
+        public void Die()
         {
             Core.TeleportToLastCheckpoint();
-            timerPlayer.counter += 10;
         }
     }
 
-    public void Die()
-    {
-        Core.TeleportToLastCheckpoint();
-    }
 }
